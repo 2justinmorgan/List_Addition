@@ -73,7 +73,7 @@ public interface Project2 {
     NodeList<Integer> addition(Iterator<NodeList<Integer>> iterator);
 
 
-    NodeList<Integer> reverse(Iterator<Integer> iterator);
+    NodeList<Integer> reverse(NodeList<Integer> appendedNodeList, Iterator<Integer> iterator);
 
 
     /**
