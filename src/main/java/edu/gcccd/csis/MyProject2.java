@@ -4,33 +4,29 @@ import java.util.Iterator;
 
 public class MyProject2 implements Project2 {
 
+    public NodeList<Integer> removeLeadingZeros(NodeList<Integer> nodeList) {
+        if(nodeList==null) return null;
+        while(nodeList.iterator().next()==0) {
+            nodeList.remove(nodeList.iterator().next());
+            if (nodeList.iterator().next()==0) break;
+        } return nodeList;
+    }
+
     @Override
     public NodeList<Integer> addition(NodeList<Integer> nodeList1, NodeList<Integer> nodeList2) {
-        //if(!nodeList1.iterator().hasNext() || !nodeList2.iterator().hasNext()) return null;
-        if(!nodeList1.iterator().hasNext() && nodeList2.iterator().hasNext()) {return nodeList2;}
-        if(nodeList1.iterator().hasNext() && !nodeList2.iterator().hasNext()) {return nodeList1;}
 
         Project2 p = new MyProject2();
-        boolean nodeList1HasLeadingZeros = nodeList1.iterator().next()==0;
-        while(nodeList1HasLeadingZeros) {
-            nodeList1.remove(nodeList1.iterator().next());
-            nodeList1HasLeadingZeros = nodeList1.iterator().next()==0;
-        }
-        boolean nodeList2HasLeadingZeros = nodeList2.iterator().next()==0;
-        while(nodeList2HasLeadingZeros) {
-            nodeList2.remove(nodeList2.iterator().next());
-            nodeList2HasLeadingZeros = nodeList2.iterator().next()==0;
-        }
+        if(nodeList1==null && nodeList2!=null) {return nodeList2;}
+        if(nodeList1!=null && nodeList2==null) {return nodeList1;}
+
+        nodeList1 = p.removeLeadingZeros(nodeList1);
+        nodeList2 = p.removeLeadingZeros(nodeList2);
 
         NodeList<Integer> revNodeList1 = p.reverse(nodeList1, nodeList1.iterator());
         NodeList<Integer> revNodeList2 = p.reverse(nodeList2, nodeList2.iterator());
         NodeList<Integer> combinedList = new NodeList<>();
 
-        //Project2.print(revNodeList1);
-        //Project2.print(revNodeList2);
-
         int carryover = 0;
-
         while(revNodeList1.iterator().hasNext() || revNodeList2.iterator().hasNext()) {
             int currentSum = 0;
 
@@ -77,41 +73,14 @@ public class MyProject2 implements Project2 {
     public NodeList<Integer> addition(Iterator<NodeList<Integer>> iterator) {
         Project2 p = new MyProject2();
         NodeList<NodeList<Integer>> condensedListOfLists = new NodeList<>();
-        int countLimit = 0;
+        int counter = 0;
         while(iterator.hasNext()) {
-            countLimit++;
-            condensedListOfLists.append(p.addition(iterator.next(),iterator.next()));
+            counter++;
+            condensedListOfLists.append(p.addition(iterator.next(), iterator.next()));
         }
-        if(countLimit<2) {
-            System.out.println("\nresult");
-            Project2.print(condensedListOfLists.iterator().next());
-            return condensedListOfLists.iterator().next();
-        }
-        System.out.println("result so far with countLimit "+countLimit);
+        if(counter<2) return condensedListOfLists.iterator().next();
         addition(condensedListOfLists.iterator());
-        Project2.print(condensedListOfLists.iterator().next());
         return condensedListOfLists.iterator().next();
-
-//        NodeList<Integer> nodeList = new NodeList<>();
-//        NodeList<Integer> additionNodeList = new NodeList<>();
-//        NodeList<Integer> resultNodeList = new NodeList<>();/
-//        int i;
-//        while(iterator.hasNext()) {
-//            nodeList = iterator.next();
-//            iterator.remove();
-//
-//            //  add items from first two node lists
-//
-//            additionNodeList = addition(iterator);
-//
-//
-//            while(additionNodeList.iterator().hasNext()){
-//                i = additionNodeList.iterator().next();
-//                additionNodeList.iterator().remove();
-//
-//                resultNodeList.append(i);
-//            }
-//        }
     }
 
 
@@ -129,7 +98,7 @@ public class MyProject2 implements Project2 {
 
 
     public static void main(final String[] args) {
-        final int L = 16;
+        final int L = 32;
 
         final NodeList<Integer> n1 = Project2.generateNumber(L); // (head 1st) e.g. 3457
         final NodeList<Integer> n2 = Project2.generateNumber(L); // (head 1st) e.g. 682
@@ -137,12 +106,11 @@ public class MyProject2 implements Project2 {
         final Project2 p = new MyProject2();
 
         Project2.print(p.addition(n1, n2)); //  n1+n2, e.g. 4139
-        System.out.println("---before for loop---");
+
         final NodeList<NodeList<Integer>> listOfLists = new NodeList<>();
         for (int i = 0; i < L; i++) {
             listOfLists.append(Project2.generateNumber(L));
         }
-        System.out.println("---after for loop---");
         p.addition(listOfLists.iterator());
         //p.save(p.addition(listOfLists.iterator()), "result.bin");
         //Project2.print(p.load("result.bin"));

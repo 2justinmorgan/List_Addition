@@ -75,6 +75,7 @@ public interface Project2 {
 
     NodeList<Integer> reverse(NodeList<Integer> appendedNodeList, Iterator<Integer> iterator);
 
+    public NodeList<Integer> removeLeadingZeros(NodeList<Integer> nodeList);
 
     /**
      * Saves a very large number as a file
