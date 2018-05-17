@@ -88,9 +88,6 @@ public class MyProject2 implements Project2 {
             return condensedListOfLists.iterator().next();
         }
         System.out.println("result so far with countLimit "+countLimit);
-        for(int i=0; i<condensedListOfLists.getLength(); i++) {
-            Project2.print(condensedListOfLists.iterator().next());
-        }
         addition(condensedListOfLists.iterator());
         Project2.print(condensedListOfLists.iterator().next());
         return condensedListOfLists.iterator().next();
@@ -132,7 +129,7 @@ public class MyProject2 implements Project2 {
 
 
     public static void main(final String[] args) {
-        final int L = 8;
+        final int L = 16;
 
         final NodeList<Integer> n1 = Project2.generateNumber(L); // (head 1st) e.g. 3457
         final NodeList<Integer> n2 = Project2.generateNumber(L); // (head 1st) e.g. 682
