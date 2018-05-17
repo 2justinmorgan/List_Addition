@@ -83,7 +83,7 @@ public interface Project2 {
      * @param nodeList NodeList&lt;Integer&gt;
      * @param fileName String
      */
-    void save(NodeList<Integer> nodeList, String fileName);
+    void save(NodeList<Integer> nodeList, String fileName) throws Exception;
 
     /**
      * Loads a very large number from a file

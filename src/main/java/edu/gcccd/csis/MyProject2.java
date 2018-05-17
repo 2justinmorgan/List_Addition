@@ -1,16 +1,11 @@
 package edu.gcccd.csis;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.Iterator;
 
 public class MyProject2 implements Project2 {
-
-    public NodeList<Integer> removeLeadingZeros(NodeList<Integer> nodeList) {
-        if(nodeList==null) return null;
-        while(nodeList.iterator().next()==0) {
-            nodeList.remove(nodeList.iterator().next());
-            if (nodeList.iterator().next()==0) break;
-        } return nodeList;
-    }
 
     @Override
     public NodeList<Integer> addition(NodeList<Integer> nodeList1, NodeList<Integer> nodeList2) {
@@ -57,18 +52,6 @@ public class MyProject2 implements Project2 {
         return p.reverse(combinedList, combinedList.iterator());
     }
 
-
-    public NodeList<Integer> reverse(NodeList<Integer> appendedNodeList, Iterator<Integer> iterator) {
-        if(iterator.hasNext()) {
-            int k = iterator.next();
-            appendedNodeList.remove(appendedNodeList.iterator().next());
-            reverse(appendedNodeList, iterator);
-            appendedNodeList.append(k);
-        } else {return null;}
-        return appendedNodeList;
-    }
-
-
     @Override
     public NodeList<Integer> addition(Iterator<NodeList<Integer>> iterator) {
         Project2 p = new MyProject2();
@@ -83,9 +66,26 @@ public class MyProject2 implements Project2 {
         return condensedListOfLists.iterator().next();
     }
 
+    public NodeList<Integer> reverse(NodeList<Integer> appendedNodeList, Iterator<Integer> iterator) {
+        if(iterator.hasNext()) {
+            int k = iterator.next();
+            appendedNodeList.remove(appendedNodeList.iterator().next());
+            reverse(appendedNodeList, iterator);
+            appendedNodeList.append(k);
+        } else {return null;}
+        return appendedNodeList;
+    }
+
+    public NodeList<Integer> removeLeadingZeros(NodeList<Integer> nodeList) {
+        if(nodeList==null) return null;
+        while(nodeList.iterator().next()==0) {
+            nodeList.remove(nodeList.iterator().next());
+            if (nodeList.iterator().next()==0) break;
+        } return nodeList;
+    }
 
     @Override
-    public void save(NodeList<Integer> nodeList, String fileName) {
+    public void save(NodeList<Integer> nodeList, String fileName) throws Exception {
 
     }
 
